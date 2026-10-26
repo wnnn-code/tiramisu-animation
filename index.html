@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>動畫：提拉米蘇</title>
+        <style>
+            body {
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                background-color: white;
+            }
+
+            #player {
+                height: 600px;
+                width: 900px;
+                border: black solid 1px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            img {
+                position: absolute;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="player">
+        </div>
+        <!-- <img src="./img/走路.png" alt=""> -->
+        <!-- <video src="./img/explosion meme.mp4"></video> -->
+        <script>
+
+            async function preload(images) {
+                await Promise.all(
+                    images.map(
+                        async src => {
+                            const image = new Image();
+                            image.src = src;
+                            await image.decode();
+                        }
+                    )
+                )
+            }
+
+            const ready = preload([
+                "./img/走路.png",
+                "./img/攤販.png",
+                "./img/驚訝.png",
+                "./img/排隊.png",
+                "./img/我排隊.png",
+                "./img/afewmomentslater.png",
+                "./img/提拉米蘇.png",
+                "./img/開心.png",
+                "./img/腳踏車：人.png",
+                "./img/腳踏車：腳踏車子.png",
+                "./img/帶回家.png",
+                "./img/開心到流口水.png",
+                "./img/袋子裝著.jpg",
+                "./img/爛掉.jpg",
+                "./img/我尷尬.png",
+                "./img/傷心2.png",
+                "./img/傷心1.png",
+                "./img/傷心3.png",
+                "./img/傷心5.png",
+                "./img/傷心4.png",
+                "./img/我跪地痛哭.png"
+            ])
+
+            const player = document.getElementById("player");//player
+
+            const start = document.createElement("button");//start button
+            start.textContent = "開始播放";
+            start.style.position = "absolute";
+            start.style.left = "50%";
+            start.style.top = "50%"
+            start.style.transform = "translate(-50%,-50%)";
+            start.onclick = async() => {
+                    start.remove();
+                    await ready;
+                    main();
+            }
+
+            const sound1 = new Audio("./audio/boom.mp3");//sounds
+            sound1.volume = 0.5;
+            const sound2 = new Audio("./audio/poop.mp3");
+            const wooo = new Audio("./audio/wooo.mp3");
+            const move = new Audio("./audio/moving-stone.mp3");
+            const latersound = new Audio("./audio/later.mp3");
+            const laugh1 = new Audio("./audio/laugh1.mp3");
+            const laugh2 = new Audio("./audio/laugh2.mp3");
+            laugh2.volume = 0.9;
+            const laugh3 = new Audio("./audio/laugh3.mp3");
+            laugh3.volume = 0.9;
+            const breaksound = new Audio("./audio/break.mp3");
+            const bike = new Audio("./audio/bike.wav");
+            const bgm = new Audio("./audio/bgm.m4a");
+            bgm.volume = 0.3;
+
+            const video1 = document.createElement("video");
+            video1.src = "./img/explosion meme.mp4";
+            video1.preload = "auto";
+            video1.playsInline = true;
+            video1.load();
+
+            player.append(start);
+
+            const sleep = ms => new Promise((resolve) => setTimeout(resolve,ms));
+
+            async function main() {
+                bgm.play();
+                await scene1();
+                await scene2();
+                await scene3();
+                await scene4();
+                await scene5();
+                await scene6();
+                await scene7();
+                await scene8();
+                await scene9();
+                await scene10();
+            }
+
+            async function scene1() {
+                const walk = document.createElement("img");
+
+                walk.src = "./img/走路.png";
+                walk.style.width = "600px";
+                walk.style.left = "50%";
+                walk.style.top = "50%";//不能刪除
+                walk.style.transform = "translate(-50%,-50%)";//也是不能刪除
+                player.append(walk);
+
+                await walk.animate(
+                    [
+                        { transform: "translate(-1000px,-50%)"},
+                        { transform: "translate(-50%,-50%)"}
+                    ],
+                    {
+                        duration: 3000,
+                        easing: "ease-out",
+                        fill:"forwards"
+                    }
+                ).finished;
+                
+                await sleep(800);
+
+                walk.remove();
+            }
+
+            async function scene2() {
+                const vendor = document.createElement("img");
+                vendor.src = "./img/攤販.png";
+                vendor.style.width = "900px";
+                vendor.style.left = "38%";
+                vendor.style.top = "54%";
+                vendor.style.transform = "translate(-50%,-50%)";
+                player.append(vendor);
+
+                const shock = document.createElement("img");
+                shock.src = "./img/驚訝.png";
+                shock.style.width = "700px";
+                shock.style.left = "30%";
+                shock.style.top = "50%";
+                shock.style.transform = "translate(-150%,-50%)";
+                player.append(shock);
+
+                sound1.play();
+
+                await vendor.animate (
+                        [
+                            { transform: "translate(-50%,-30%)"},
+                            { transform: "translate(-50%,-50%)" }
+                        ],
+                        {
+                            duration: 1500,
+                            easing: "ease-out",
+                        }
+                    ).finished;
+                
+                await sleep(1600);
+
+                setTimeout(() => {wooo.play();}, 255);
+
+                await Promise.all([
+                    vendor.animate (
+                        [
+                            { transform: "translate(-50%,-50%) scale(1)"},
+                            { transform: "translate(-25%,-66%) scale(0.8)"}
+                        ],
+                        {
+                            duration: 900,
+                            easing: "ease-out",
+                            fill:"forwards"
+                        }
+                    ).finished,
+
+                    shock.animate(
+                        [
+                            { transform: "translate(-150%,-50%)"},
+                            { transform: "translate(-50%,-50%)"}
+                        ],
+                        {
+                            duration: 900,
+                            easing: "ease-out",
+                            fill: "forwards"
+                        }
+                    ).finished
+                ]);
+
+                await sleep(1000);
+
+                vendor.remove();
+                shock.remove();
+            }
+
+            async function scene3() {
+                const line = document.createElement("img");
+                line.src = "./img/排隊.png";
+                line.style.width = "900px"
+                line.style.left = "50%";
+                line.style.top = "50%"
+                line.style.transform = "translate(-50%,-50%)";
+                player.append(line);
+
+                const me = document.createElement("img");
+                me.src = "./img/我排隊.png";
+                me.style.width = "900px"
+                me.style.left = "33%";
+                me.style.top = "50%";
+                me.style.transform = "translate(-50%,-50%)";
+                player.append(me);
+
+                move.play();
+
+                await me.animate(
+                    [
+                        { transform: "translate(-1000px,-50%)"},
+                        { transform: "translate(-50%,-50%)"}
+                    ],
+                    {
+                        duration: 2000,
+                        easing: "ease-out",
+                        fill: "forwards"
+                    }
+                ).finished;
+
+                await sleep(1500);
+
+                line.remove();
+                me.remove();
+            }
+            
+            async function scene4() {
+                const later = document.createElement("img");
+                later.src = "./img/afewmomentslater.png";
+                later.style.width = "600px"
+                later.style.left = "50%";
+                later.style.top = "50%";
+                later.style.transform = "translate(-50%,-50%)";
+                player.append(later);
+
+                latersound.play();
+                await sleep(latersound.duration * 1000)
+
+                later.remove();
+
+                //await sleep(500);
+            }
+
+            async function scene5() {
+                const img1 = document.createElement("img");
+                img1.src = "./img/提拉米蘇.png";
+                img1.style.width = "500px"
+                img1.style.left = "50%";
+                img1.style.top = "50%";
+                img1.style.transform = "translate(-50%,-50%)";
+                player.append(img1);
+
+                const img2 = document.createElement("img");
+                img2.src = "./img/開心.png";
+                img2.style.width = "900px"
+                img2.style.left = "50%";
+                img2.style.top = "50%";
+                img2.style.transform = "translate(1000px,-50%)";
+                player.append(img2);
+
+                await img1.animate(
+                    [
+                        { transform: "translate(-50%,-30%)"},
+                        { transform: "translate(-50%,-50%)"}
+                    ],
+                    {
+                        duration: 1500,
+                        easing: "ease-out",
+                    }
+                ).finished;
+
+                await sleep(900);
+
+                setTimeout(() => {laugh2.play();},300);
+
+                await Promise.all([
+                    img1.animate(
+                        [
+                            { transform: "translate(-50%,-50%)"},
+                            { transform: "translate(-80%,-50%)"}
+                        ],
+                        {
+                            duration: 1000,
+                            easing: "ease-out",
+                            fill: "forwards"
+                        }
+                    ).finished,
+
+                    img2.animate(
+                        [
+                            { transform: "translate(500px,-50%)"},
+                            { transform: "translate(-30%,-50%)"}
+                        ],
+                        {
+                            duration: 1000,
+                            easing: "ease-out",
+                            fill: "forwards"
+                        }
+                    ).finished
+                ])
+
+                await sleep(800);
+
+                img1.remove();
+                img2.remove();
+            }
+
+            //for only bike//no need
+
+            async function scene6() {
+                const img1 = document.createElement("img");
+                img1.src = "./img/腳踏車：人.png";
+                img1.style.width = "900px"
+                img1.style.left = "50%";
+                img1.style.top = "50%";
+                img1.style.transform = "translate(-50%,-50%)";
+                player.append(img1);
+
+                const img2 = document.createElement("img");
+                img2.src = "./img/腳踏車：腳踏車子.png";
+                img2.style.width = "900px"
+                img2.style.left = "50%";
+                img2.style.top = "50%";
+                img2.style.transform = "translate(-50%,-50%)";
+                player.append(img2);
+
+                setTimeout(() => { bike.play();},300);
+
+                await sleep(2000);
+
+                breaksound.play();
+
+                await img2.animate(
+                    [
+                        { transform: "translate(-50%,-50%)"},
+                        { transform: "translate(calc(-50% - 5px),calc(-50% - 5px))"},
+                        { transform: "translate(calc(-50% + 5px),calc(-50% + 5px))"},
+                        { transform: "translate(calc(-50% - 5px),calc(-50% + 10px))"},
+                        { transform: "translate(calc(-50% + 15px),calc(-50% - 15px))"},
+                        { transform: "translate(calc(-50% - 20px),calc(-50% - 25px))"},
+                        { transform: "translate(calc(-50% + 30px),calc(-50% + 25px))"},
+                        { transform: "translate(calc(-50% - 20px),calc(-50% + 35px))"},
+                        { transform: "translate(calc(-50% + 35px),calc(-50% - 30px))"},
+                        { transform: "translate(calc(-50% - 40px),calc(-50% + 50px))"},
+                        { transform: "translate(calc(-50% + 60px),calc(-50% - 90px))"},
+                        { transform: "translate(calc(-50% - 90px),calc(-50% + 120px))"},
+                        { transform: "translate(calc(-50% - 140px),calc(-50% - 120px))"}
+                    ],
+                    {
+                        duration: 1000,
+                        easing: "ease-out",
+                        fill: "forwards"
+                    }
+                ).finished;
+
+                breaksound.pause();
+
+                img1.remove();
+                img2.remove();
+            }
+
+            async function scene7() {
+                const img1 = document.createElement("img");
+                img1.src = "./img/帶回家.png";
+                img1.style.width = "900px"
+                img1.style.left = "50%";
+                img1.style.top = "50%";
+                img1.style.transform = "translate(-50%,-50%)";
+                player.append(img1);
+
+                const img2 = document.createElement("img");
+                img2.src = "./img/開心到流口水.png";
+                img2.style.width = "900px"
+                img2.style.left = "50%";
+                img2.style.top = "50%";
+                img2.style.transform = "translate(1000px,-50%)";
+                player.append(img2);
+                //做上升效果
+
+                await await img1.animate(
+                    [
+                        { transform: "translate(-50%,-30%)"},
+                        { transform: "translate(-50%,-50%)"}
+                    ],
+                    {
+                        duration: 1000,
+                        easing: "ease-out",
+                    }
+                ).finished;
+
+                setTimeout(() => { laugh3.play();},1300)
+
+                await img2.animate(
+                    [
+                        { transform: "translate(1000px,-50%)",easing: "ease-out",offset: 0},
+                        { transform: "translate(-25%,-50%)",offset: 0.5},
+                        { transform: "translate(-25%,-50%)",easing: "ease-in",offset: 0.8},
+                        { transform: "translate(-55%,-50%)",offset: 1}
+                    ],
+                    {
+                        duration: 3000,
+                        fill: "forwards"
+                    }
+                ).finished;
+
+                img1.remove();
+                img2.remove();
+            }
+
+            async function scene8() {
+                const img1 = document.createElement("img");
+                img1.src = "./img/袋子裝著.jpg";
+                img1.style.width = "400px"
+                img1.style.left = "50%";
+                img1.style.top = "50%";
+                img1.style.transform = "translate(-50%,-50%)";
+
+                player.append(img1);
+
+                await img1.animate(
+                    [
+                        { transform: "translate(-50%,-30%)"},
+                        { transform: "translate(-50%,-50%)"}
+                    ],
+                    {
+                        duration: 1000,
+                        easing: "ease-out",
+                    }
+                ).finished;
+
+                await sleep(2000);
+
+
+                bgm.pause();
+                sound2.play();
+                img1.src = "./img/爛掉.jpg";
+                await sleep(3000);
+                img1.remove();
+            }
+
+            async function scene9() {
+                const img1 = document.createElement("img");
+                img1.src = "./img/我尷尬.png";
+                img1.style.width = "900px"
+                img1.style.left = "50%";
+                img1.style.top = "50%";
+                img1.style.transform = "translate(-50%,-50%)";
+                
+                await sound1.play();   
+                player.append(img1);
+                await sleep(3000);
+
+                sound1.pause();
+                sound1.currentTime = 0;
+                sound1.play();
+                img1.src = "./img/傷心2.png";
+                await sleep(400);
+
+                sound1.pause();
+                sound1.currentTime = 0;
+                sound1.play();
+                img1.src = "./img/傷心1.png";
+                await sleep(400);
+
+                sound1.pause();
+                sound1.currentTime = 0;
+                sound1.play();
+                img1.src = "./img/傷心3.png";
+                await sleep(400);
+
+                sound1.pause();
+                sound1.currentTime = 0;
+                sound1.play();
+                img1.src = "./img/傷心5.png";
+                await sleep(400);
+
+                sound1.pause();
+                sound1.currentTime = 0;
+                sound1.play();
+                img1.src = "./img/傷心4.png";
+                await sleep(400);
+
+                sound1.pause();
+                sound1.currentTime = 0;
+                sound1.play();
+                img1.src = "./img/我跪地痛哭.png";
+                await sleep(2000);
+
+                img1.remove();
+            }
+
+            async function scene10() {
+                video1.volume = 0.3;
+
+                video1.style.position = "absolute";
+                video1.style.width = "700px";
+                video1.style.left = "50%";
+                video1.style.top = "50%";
+                video1.style.transform = "translate(-50%, -50%)";
+
+                video1.currentTime = 0;
+
+                player.append(video1);
+
+                await video1.play();
+
+                await sleep(300);
+
+                video1.pause();
+
+            }
+
+        </script>
+    </body>
+</html>
